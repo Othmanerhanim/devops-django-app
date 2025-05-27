@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'  # adapte la version si besoin
+          python-version: '3.10'
 
       - name: Install dependencies
         run: |
@@ -24,16 +24,22 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run migrations
-        run: |
-          python manage.py migrate
+        run: python manage.py migrate
 
       - name: Collect static files
-        run: |
-          python manage.py collectstatic --noinput
+        run: python manage.py collectstatic --noinput
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'monappdjango1955'  # remplace par le nom exact de ton app Azure
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          app-name: 'monappdjango1955'
+          slot-name: 'production'
           package: .
