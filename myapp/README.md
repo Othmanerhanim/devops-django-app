@@ -19,10 +19,4 @@ Ce projet a pour but de démontrer comment déployer une application Django sur 
 - Git installé localement
 - Python 3.12 (ou version compatible)
 
-## Installation locale
-
-1. Clonez le dépôt :
-
-```bash
-git clone https://github.com/Othmanerhanim/devops-django-app.git
-cd devops-django-app
+fait par othmane
