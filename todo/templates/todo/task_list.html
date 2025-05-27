@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ma liste de tâches</title>
+</head>
+<body>
+    <h1>Mes tâches</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+            <li>
+                {{ task.title }} - {{ task.created_at }}
+                <a href="{% url 'task_delete' task.id %}">Supprimer</a>
+            </li>
+        {% endfor %}
+    </ul>
+    
+</body>
+</html>
